@@ -1,13 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "linalg.h"
 
 
 #define EMPTY -999
-
-#define NUM_COLS 3
-#define NUM_ROWS 3
-
-
 
 
 void
@@ -73,7 +69,7 @@ mult(float (*A)[NUM_COLS], float (*B)[NUM_COLS], float (*C)[NUM_COLS], int cols_
 }
 
 
-void
+static void
 print_aligned_num(float x) {
 	if (x < 0) {
 		if (x > -10) printf("%.2f  ", x);
@@ -100,7 +96,6 @@ void
 add_print(float (*A)[NUM_COLS], float (*B)[NUM_COLS], float (*C)[NUM_COLS], int cols, int rows) {
 	int i, j;
 	add(A, B, C, rows, cols);
-	printf("\n");
 	for (i = 0; i < rows; i++) {
 		printf("|");
 		for (j = 0; j < cols; j++) 
@@ -120,43 +115,4 @@ add_print(float (*A)[NUM_COLS], float (*B)[NUM_COLS], float (*C)[NUM_COLS], int 
 		printf("\n");
 		
 	}
-	printf("\n");
-}
-
-int
-main() {
-	int i, j;
-	float A[][NUM_ROWS] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-	// float B[][NUM_ROWS] = {{5, 2, 8}, {1, 6, 7}, {9, 3, 4}};
-	float B[][NUM_ROWS] = {{1, 0, 0}, {0, 2, 0}, {1, 2, 0}};
-	float C[NUM_COLS][NUM_ROWS];
-
-	float D[] = {1, 0, 3};
-	float E[] = {0, 1, 2};
-	float F[NUM_COLS];
-	vector_add(D, E, F, NUM_COLS);
-	printf("\nVector Addition:\n\n");
-	for (i = 0; i < NUM_COLS; i++) {
-		printf("%.2f ", F[i]);
-	}
-	printf("\n\n");
-
-	vector_scale(F, (1.0/2.0), NUM_COLS);
-	printf("\nVector Scale:\n\n");
-	for (i = 0; i < NUM_COLS; i++) {
-		printf("%.2f ", F[i]);
-	}
-	printf("\n\n");
-
-	zero_matrix(C, NUM_COLS, NUM_ROWS);
-
-	add_print(A, B, C, NUM_COLS, NUM_ROWS);
-
-	printf("\n\n");
-	matrix_print(A, NUM_COLS, NUM_ROWS);
-	printf("(1/3)\n");
-	scale(A, (1.0/3.0), NUM_COLS, NUM_ROWS);
-	printf("===============================\n");
-	matrix_print(A, NUM_COLS, NUM_ROWS);
-	return 0;
 }
